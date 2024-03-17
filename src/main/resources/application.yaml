@@ -1,11 +1,11 @@
 server:
-  port: 9998
+  port: 9997
   shutdown: graceful
   ######### SPRING BASED PATH ################
 management:
   endpoints:
     web:
-      base-path: /
+      base-path: /customer/actuator
 spring:
   application:
     name: customer-service
@@ -44,9 +44,6 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-  ######### SHED LOCK ###########
-  cron:
-    pending-payment: "*/10 * * * * *"
   ######## SPRING DOC ########
 springdoc:
   api-docs:
@@ -76,11 +73,6 @@ resilience4j:
           - com.microservice.customer.exception.DuplicateException
           - com.microservice.customer.exception.NotFoundException
           - com.microservice.customer.exception.GenericException
-  ######### CUSTOM PAYMENT PROPERTIES ##########
-payment:
-  modification: 2
-  processing:
-    day: 1 # days to add to finalize and process payments
   ######### CACHE CONFIGURATION #############
 cache:
   default:

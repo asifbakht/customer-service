@@ -5,7 +5,7 @@ server:
 management:
   endpoints:
     web:
-      base-path: /
+      base-path: ${SWAGGER_PATH}
 spring:
   application:
     name: customer-service
@@ -49,9 +49,6 @@ spring:
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
-  ######### SHED LOCK ########
-  cron:
-    pending-payment: ${SHED_LOCK_PENDING_PAYMENT}
   ######## SPRINT DOC ########
 springdoc:
   api-docs:
@@ -81,14 +78,9 @@ resilience4j:
           - com.microservice.customer.exception.DuplicateException
           - com.microservice.customer.exception.NotFoundException
           - com.microservice.customer.exception.GenericException
-  ######### CUSTOM PROPERTIES ##########
-payment:
-  modification: ${TOTAL_MODIFICATION_ALLOWED}
-  processing:
-    day: ${TOTAL_DAYS_TO_PROCESS_PAYMENT} # days to add to finalize and process payments
   ######### CACHE CONFIGURATION #############
 cache:
   default:
     time-to-live: ${DEFAULT_CACHE_TTL} #minutes
-  payment:
-    time-to-live: ${PAYMENT_CACHE_TTL} # minutes
+  app:
+    time-to-live: ${APP_CACHE_TTL} # minutes

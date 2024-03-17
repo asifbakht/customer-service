@@ -70,11 +70,6 @@ resilience4j:
           - com.microservice.payment.exception.DuplicateException
           - com.microservice.payment.exception.NotFoundException
           - com.microservice.payment.exception.GenericException
-  ######### CUSTOM PAYMENT PROPERTIES ##########
-payment:
-  modification: 2
-  processing:
-    day: 2 # days to add to finalize and process payments
   ######### CACHE CONFIGURATION #############
 cache:
   default:
