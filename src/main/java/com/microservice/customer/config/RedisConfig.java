@@ -29,7 +29,7 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private int redisPort;
 
-    @Value("${cache.payment.time-to-live:10}")
+    @Value("${cache.app.time-to-live:10}")
     private int customerTTL;
     @Value("${cache.default.time-to-live:5}")
     private int defaultTTL;

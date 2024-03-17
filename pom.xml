@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.microservice</groupId>
-	<artifactId>payment-method</artifactId>
+	<artifactId>customer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>payment method</name>
-	<description>payment method services for banking</description>
+	<name>customer</name>
+	<description>customer services for banking</description>
 	<properties>
 		<!-- java version -->
 		<java.version>17</java.version>
@@ -30,8 +30,8 @@
 		<maven.plugin.version>3.2.1</maven.plugin.version>
 		<io.jwt.version>0.12.3</io.jwt.version>
 		<!-- sonar configuration -->
-		<sonar.projectKey>com.microservice.banking:paymentmethod</sonar.projectKey>
-		<sonar.projectName>paymentmethod</sonar.projectName>
+		<sonar.projectKey>com.microservice.banking:customer</sonar.projectKey>
+		<sonar.projectName>customer</sonar.projectName>
 		<sonar.language>java</sonar.language>
 		<sonar.java.source>17</sonar.java.source>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
