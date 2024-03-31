@@ -9,6 +9,8 @@ import com.microservice.customer.repository.CustomerRepository;
 import com.microservice.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import static com.microservice.customer.utils.Constants.NOT_FOUND;
@@ -97,6 +99,18 @@ public class CustomerServiceImpl implements CustomerService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND));
         customerRepository.deleteById(id);
+    }
+
+    /**
+     * return all customer's from database with paginated properties
+     *
+     * @param pageable   {@link Pageable} paginated properties
+     */
+    @Override
+    public Page<CustomerDTO> getAll(final Pageable pageable) {
+        return customerRepository
+                .findAll(pageable)
+                .map(customerMapper::toDTO);
     }
 
 }
