@@ -2,6 +2,7 @@ package com.microservice.customer.controller;
 
 import com.microservice.customer.dto.CustomerDTO;
 import com.microservice.customer.dto.Response;
+import com.microservice.customer.dto.ResponsePager;
 import com.microservice.customer.exception.DuplicateException;
 import com.microservice.customer.exception.GenericException;
 import com.microservice.customer.exception.NotFoundException;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -380,6 +383,33 @@ public class CustomerController {
         }
     }
 
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllCustomers(final Pageable pageRequest) {
+        try {
+            log.info("Search customer with pagination initiated: {}", pageRequest);
+            final Page<CustomerDTO> pageCustomers = customerService.getAll(pageRequest);
+            final ResponsePager<?> responsePage = new ResponsePager<>(pageCustomers.getContent(),
+                    pageCustomers.getNumber(),
+                    pageCustomers.getTotalElements(),
+                    pageCustomers.getTotalPages()
+            );
+            log.info("Search customer with pagination completed");
+            return ResponseEntity
+                    .status(OK)
+                    .body(responsePage);
+        } catch (final GenericException e) {
+            log.error("Error occurred: {}", e.getMessage());
+            return ResponseEntity
+                    .status(BAD_REQUEST)
+                    .body(new Response<>(e.getMessage(), BAD_REQUEST.value()));
+        } catch (final NotFoundException e) {
+            log.error("Error occurred: {}", e.getMessage());
+            return ResponseEntity
+                    .status(NOT_FOUND)
+                    .body(new Response<>(e.getMessage(), NOT_FOUND.value()));
+        }
+    }
 
     /**
      * circuit breaker to avoid error calls for adding customer

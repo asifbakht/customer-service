@@ -1,17 +1,25 @@
 server:
   port: 9997
   shutdown: graceful
+  servlet:
+    contextPath: /api/v1
   ######### SPRING BASED PATH ################
 management:
   endpoints:
     web:
       base-path: /customer/actuator
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
 spring:
   application:
     name: customer-service
-  mvc:
-    servlet:
-      path: /api/v1
   threads:
     virtual:
       enabled: true #Spring 3.2 feature

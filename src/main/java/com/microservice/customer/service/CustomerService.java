@@ -1,6 +1,8 @@
 package com.microservice.customer.service;
 
 import com.microservice.customer.dto.CustomerDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CustomerService {
 
@@ -11,4 +13,6 @@ public interface CustomerService {
     public CustomerDTO get(final String id);
 
     public void delete(final String id);
+
+    public Page<CustomerDTO> getAll(final Pageable pageable);
 }
